@@ -1,0 +1,6 @@
+@eHub.Backend.WebApi_HostAddress = http://localhost:5048
+
+GET {{eHub.Backend.WebApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
