@@ -40,7 +40,7 @@ namespace eHub.Backend.WebApi.Registration
                     // Configuración para XML Comments
                     var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                     var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFilename);
-                    var domainXml = Path.Combine(AppContext.BaseDirectory, "GameStore.CleanArch.Backend.Domain.xml");
+                    var domainXml = Path.Combine(AppContext.BaseDirectory, "eHub.Backend.Domain.xml");
 
                     if (File.Exists(xmlPath) && File.Exists(domainXml))
                     {

@@ -1,33 +1,42 @@
 ﻿using eHub.Backend.Domain.Contracts.Repositories;
 using eHub.Backend.Domain.Entities;
+using eHub.Backend.Infrastructure.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace eHub.Backend.Infrastructure.Repositories
 {
     public class UserRepository : IUserRepository
     {
-        public Task AddAsync(User entity)
+        public readonly AppDbContext _context;
+
+        public UserRepository(AppDbContext context) => _context = context;
+
+        public async Task AddAsync(User entity)
         {
-            throw new NotImplementedException();
+            await _context.Users.AddAsync(entity);
+            await _context.SaveChangesAsync();
         }
 
-        public Task DeleteAsync(int id)
+        public async Task DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            var user = await GetByIdAsync(id);
+            user.IsDeleted = true;
+            user.DeletedTimeUtc = DateTime.UtcNow;
+
+            await _context.SaveChangesAsync();
         }
 
-        public Task<IEnumerable<User>> GetAllAsync()
-        {
-            throw new NotImplementedException();
-        }
+        public async Task<IEnumerable<User>> GetAllAsync() =>
+            await _context.Users.ToListAsync();
 
-        public Task<User?> GetByIdAsync(int id)
-        {
-            throw new NotImplementedException();
-        }
+        public async Task<User?> GetByIdAsync(int id) =>
+            await _context.Users.FindAsync(id);
 
-        public Task UpdateAsync(int id, User entity)
+        public async Task UpdateAsync(int id, User entity)
         {
-            throw new NotImplementedException();
+            _context.Set<User>().Attach(entity);
+            _context.Entry(entity).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
         }
     }
 }

@@ -24,14 +24,16 @@ namespace eHub.Backend.WebApi
             builder.Services.AddInfrastructureServices(builder.Configuration);
             builder.Services.AddSwaggerServices();
 
-            //builder.Services.AddFluentValidation(conf =>
-                //conf.RegisterValidatorsFromAssemblyContaining<Application.Features.Game.Validators.GameModelValidator>());
+            builder.Services.AddFluentValidation(conf =>
+                conf.RegisterValidatorsFromAssemblyContaining<Application.Features.User.Validators.UserModelValidator>());
 
             builder.Services.AddFluentValidationRulesToSwagger();
 
             builder.Services.AddControllers();
 
             var app = builder.Build();
+
+            app.AddSwaggerApp();
 
             app.UseHttpsRedirection();
 

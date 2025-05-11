@@ -18,11 +18,4 @@
     <ProjectReference Include="..\eHub.Backend.Domain\eHub.Backend.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Features\User\Validators\" />
-    <Folder Include="Features\User\Queries\" />
-    <Folder Include="Features\User\Commands\" />
-    <Folder Include="Mappings\" />
-  </ItemGroup>
-
 </Project>

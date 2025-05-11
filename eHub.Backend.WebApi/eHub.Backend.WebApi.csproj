@@ -25,8 +25,4 @@
     <ProjectReference Include="..\eHub.Backend.Infrastructure\eHub.Backend.Infrastructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Controllers\Swagger\" />
-  </ItemGroup>
-
 </Project>
