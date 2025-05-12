@@ -38,7 +38,7 @@ namespace eHub.Backend.WebApi.Controllers
         /// <param name="idUser">El ID único del usuario</param>
         /// <returns>Datos completos del usuario solicitado</returns>
         [HttpGet]
-        [Route("{idGame}")]
+        [Route("{idUser}")]
         [ProducesResponseType(typeof(UserResponseModel), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -107,6 +107,51 @@ namespace eHub.Backend.WebApi.Controllers
         public async Task<ActionResult> DeleteUser([FromRoute] int idUser)
         {
             var response = await _userService.DeleteUserAsync(idUser);
+            return Ok(response);
+        }
+
+
+
+
+
+        /// <summary>
+        /// Registra un nuevo usuario
+        /// </summary>
+        /// <param name="model">El modelo de registro de usuario recibido como request</param>
+        /// <returns>Respuesta estándar de éxito</returns>
+        [HttpPost]
+        [Route("register")]
+        [ProducesResponseType(typeof(OkResponseModel), StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [SwaggerRequestExample(typeof(UserModel), typeof(RegisterUserModelExample))]
+        [SwaggerResponseExample(StatusCodes.Status201Created, typeof(OkResponseModelExample))]
+        [Produces("application/json")]
+        public async Task<ActionResult> RegisterUser([FromBody] RegisterUserModel model)
+        {
+            var response = await _userService.RegisterUserAsync(model);
+            return Ok(response);
+        }
+
+        /// <summary>
+        /// Actualiza el usuario creado en la primera fase de registro
+        /// </summary>
+        /// <param name="idUser">El ID único del usuario</param>
+        /// <param name="model">El modelo de usuario recibido como request para actualizar</param>
+        /// <returns>Respuesta estándar de éxito</returns>
+        [HttpPut]
+        [Route("{idUser}/complete-profile")]
+        [ProducesResponseType(typeof(OkResponseModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [SwaggerRequestExample(typeof(UserModel), typeof(CompleteUserProfileModel))]
+        [SwaggerResponseExample(StatusCodes.Status200OK, typeof(OkResponseModelExample))]
+        [Produces("application/json")]
+        public async Task<ActionResult> CompleteUserProfile([FromRoute] int idUser, [FromBody] CompleteUserProfileModel model)
+        {
+            var response = await _userService.CompleteUserProfileAsync(idUser, model);
             return Ok(response);
         }
     }

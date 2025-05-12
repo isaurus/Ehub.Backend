@@ -38,7 +38,7 @@
             <summary>
             Actualiza un usuario existente
             </summary>
-            <param name="idUSer">El ID único del usuario</param>
+            <param name="idUser">El ID único del usuario</param>
             <param name="model">El modelo de usuario recibido como request para actualizar</param>
             <returns>Respuesta estándar de éxito</returns>
         </member>
@@ -47,6 +47,21 @@
             Elimina un usuario según el ID proporcionado
             </summary>
             <param name="idUser">El ID único del usuario</param>
+            <returns>Respuesta estándar de éxito</returns>
+        </member>
+        <member name="M:eHub.Backend.WebApi.Controllers.UserController.RegisterUser(eHub.Backend.Domain.Models.RegisterUserModel)">
+            <summary>
+            Registra un nuevo usuario
+            </summary>
+            <param name="model">El modelo de registro de usuario recibido como request</param>
+            <returns>Respuesta estándar de éxito</returns>
+        </member>
+        <member name="M:eHub.Backend.WebApi.Controllers.UserController.CompleteUserProfile(System.Int32,eHub.Backend.Domain.Models.CompleteUserProfileModel)">
+            <summary>
+            Actualiza el usuario creado en la primera fase de registro
+            </summary>
+            <param name="idUser">El ID único del usuario</param>
+            <param name="model">El modelo de usuario recibido como request para actualizar</param>
             <returns>Respuesta estándar de éxito</returns>
         </member>
     </members>

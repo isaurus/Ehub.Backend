@@ -22,11 +22,19 @@ namespace eHub.Backend.Application.Registration
 
         #region ConnectionStrings
 
-        public static string? LocalDB
+        public static string? HomeLocalDB
         {
             get
             {
-                return Configuration != null ? Configuration["ConnectionStrings:LocalDB"] : string.Empty;
+                return Configuration != null ? Configuration["ConnectionStrings:HomeLocalDB"] : string.Empty;
+            }
+        }
+
+        public static string? LaptopLocalDB
+        {
+            get
+            {
+                return Configuration != null ? Configuration["ConnectionStrings:LaptopLocalDB"] : string.Empty;
             }
         }
 

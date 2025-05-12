@@ -5,6 +5,6 @@ namespace eHub.Backend.Application.Features.User.Commands
 {
     public class CreateUserCommand(UserModel model) : IRequest<OkResponseModel>
     {
-        public UserModel Model { get; set; }
+        public UserModel Model { get; set; } = model;
     }
 }

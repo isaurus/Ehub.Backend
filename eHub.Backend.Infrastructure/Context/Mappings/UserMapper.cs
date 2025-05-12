@@ -25,7 +25,7 @@ namespace eHub.Backend.Infrastructure.Context.Mappings
                 s => Enum.Parse<Country>(s)
             );
 
-            builder.ToTable("User");
+            builder.ToTable("Users");
 
             builder.HasKey(u => u.Id);
 
