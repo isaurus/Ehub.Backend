@@ -1,7 +1,11 @@
-﻿using eHub.Backend.Domain.Contracts.Hash;
+﻿using BCrypt.Net;
 
-namespace eHub.Backend.Infrastructure.Hash
+
+
+namespace eHub.Backend.Infrastructure.Security.Hash
 {
+    using BCrypt.Net;
+
     public class BCryptPasswordHasher : IPasswordHasher
     {
         public string Hash(string password)
@@ -14,4 +18,5 @@ namespace eHub.Backend.Infrastructure.Hash
             return BCrypt.Net.BCrypt.Verify(password, passwordHash);
         }
     }
+
 }

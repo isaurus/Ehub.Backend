@@ -1,14 +1,14 @@
 ﻿using AutoMapper;
 using eHub.Backend.Application.Features.User.Commands;
 using eHub.Backend.Application.Features.User.Queries;
-using eHub.Backend.Domain.Contracts.Hash;
 using eHub.Backend.Domain.Contracts.Repositories;
+using eHub.Backend.Domain.Contracts.Services;
 using eHub.Backend.Domain.Models;
 using MediatR;
 
 namespace eHub.Backend.Application.Features.User
 {
-    public class UserHandler(IMapper mapper, IUserRepository userRepository, IPasswordHasher passwordHasher) :
+    public class UserHandler(IMapper mapper, IUserRepository userRepository, IPasswordHasherService passwordHasher) :
         IRequestHandler<GetAllUsersQuery, IEnumerable<UserResponseModel>>,
         IRequestHandler<GetUserByIdQuery, UserResponseModel?>,
         IRequestHandler<CreateUserCommand, OkResponseModel>,
@@ -22,7 +22,7 @@ namespace eHub.Backend.Application.Features.User
         private readonly IMapper _mapper = mapper;
         private readonly IUserRepository _userRepository = userRepository;
 
-        private readonly IPasswordHasher _passwordHasher = passwordHasher;
+        private readonly IPasswordHasherService _passwordHasher = passwordHasher;
 
         public async Task<IEnumerable<UserResponseModel>> Handle(GetAllUsersQuery request, CancellationToken cancellationToken)
         {

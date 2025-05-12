@@ -1,6 +1,6 @@
-﻿namespace eHub.Backend.Domain.Contracts.Hash
+﻿namespace eHub.Backend.Domain.Contracts.Services
 {
-    public interface IPasswordHasher
+    public interface IPasswordHasherService
     {
         string Hash(string password);
         bool Verify(string password, string passwordHash);
