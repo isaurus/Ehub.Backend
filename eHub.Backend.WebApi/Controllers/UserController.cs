@@ -1,6 +1,7 @@
 ﻿using eHub.Backend.Domain.Contracts.Services;
 using eHub.Backend.Domain.Models;
 using eHub.Backend.WebApi.Controllers.Swagger;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Filters;
 
@@ -135,5 +136,29 @@ namespace eHub.Backend.WebApi.Controllers
             var response = await _userService.CompleteUserProfileAsync(idUser, model);
             return Ok(response);
         }
+
+        /*
+        /// <summary>
+        /// Obtiene el perfil del usuario autenticado
+        /// </summary>
+        /// <returns>Datos completos del usuario</returns>
+        [Authorize]
+        [HttpGet("profile")]
+        [ProducesResponseType(typeof(UserResponseModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [Produces("application/json")]
+        public async Task<ActionResult> GetUserProfile()
+        {
+            var userIdClaim = User.FindFirst("sub")?.Value;
+            if (userIdClaim is null)
+                return Unauthorized();
+
+            if (!int.TryParse(userIdClaim, out var userId))
+                return Unauthorized();
+
+            var response = await _userService.GetUserByIdAsync(userId);
+            return Ok(response);
+        }*/
+
     }
 }

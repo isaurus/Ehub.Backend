@@ -3,15 +3,15 @@ using System.Security.Claims;
 using System.Text;
 using eHub.Backend.Domain.Contracts.Services;
 using eHub.Backend.Domain.Models;
-using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
 namespace eHub.Backend.Infrastructure.Security.Authentication
 {
-    public class AuthService(JwtSettings jwtSettings) : IAuthService
+    public class AuthService(IOptions<JwtSettings> jwtOptions) : IAuthService
     {
 
-        private readonly JwtSettings _jwtSettings = jwtSettings;
+        private readonly JwtSettings _jwtSettings = jwtOptions.Value;
 
         public string GenerateJwtToken(UserModel model)
         {
@@ -20,13 +20,14 @@ namespace eHub.Backend.Infrastructure.Security.Authentication
                     Encoding.UTF8.GetBytes(_jwtSettings.Secret)),
                 SecurityAlgorithms.HmacSha256);
 
-            var claims = new[]
+            var claims = new List<Claim>
             {
                 new Claim(JwtRegisteredClaimNames.Sub, model.Id.ToString()),
-                new Claim(JwtRegisteredClaimNames.GivenName, model.FirstName),
-                new Claim(JwtRegisteredClaimNames.FamilyName, model.LastName),
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())   // ¿PARA QUÉ LO NECESITO? ¿QUÉ ES LO DE JTI?
+                new Claim(JwtRegisteredClaimNames.Email, model.Email),
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
+
+            AddOptionalClaims(model, claims);
 
             var securityToken = new JwtSecurityToken(
                 issuer: _jwtSettings.Issuer,
@@ -36,6 +37,15 @@ namespace eHub.Backend.Infrastructure.Security.Authentication
                 signingCredentials: signingCredentials);
 
             return new JwtSecurityTokenHandler().WriteToken(securityToken);
+        }
+
+        private static void AddOptionalClaims(UserModel model, List<Claim> claims)
+        {
+            if (!string.IsNullOrEmpty(model.FirstName))
+                claims.Add(new Claim(JwtRegisteredClaimNames.GivenName, model.FirstName));
+
+            if (!string.IsNullOrEmpty(model.LastName))
+                claims.Add(new Claim(JwtRegisteredClaimNames.FamilyName, model.LastName));
         }
     }
 }

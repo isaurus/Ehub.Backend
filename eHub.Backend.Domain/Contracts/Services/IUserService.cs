@@ -13,6 +13,6 @@ namespace eHub.Backend.Domain.Contracts.Services
 
         Task<OkResponseModel> RegisterUserAsync(RegisterUserModel model);     // Para registro de nuevos usuarios desde la app
         Task<OkResponseModel> CompleteUserProfileAsync(int id, CompleteUserProfileModel model);    // Para el segundo paso de registro de usuarios desde la app
-        Task<OkResponseModel?> LoginUserAsync(int id, LoginUserModel model);
+        Task<AuthResponseModel?> LoginUserAsync(LoginUserModel model);
     }
 }

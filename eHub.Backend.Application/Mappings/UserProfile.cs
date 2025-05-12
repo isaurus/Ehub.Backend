@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using eHub.Backend.Application.Features.User.Commands;
 using eHub.Backend.Domain.Entities;
 using eHub.Backend.Domain.Models;
 

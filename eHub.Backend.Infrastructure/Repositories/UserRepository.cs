@@ -34,6 +34,11 @@ namespace eHub.Backend.Infrastructure.Repositories
         public async Task<User?> GetByIdAsync(int id) =>
             await _context.Users.FindAsync(id);
 
+        public async Task<User?> GetUserByEmailAsync(string email)
+        {
+            return await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+        }
+
         public async Task UpdateAsync(int id, User entity)
         {
             entity.UpdatedAt = DateTime.UtcNow;

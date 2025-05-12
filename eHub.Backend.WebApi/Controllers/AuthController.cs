@@ -42,17 +42,17 @@ namespace eHub.Backend.WebApi.Controllers
         /// <param name="model">El modelo de login de usuario recibido como request</param>
         /// <returns>Respuesta estándar de éxito</returns>
         [HttpPost]
-        [Route("{idUser}/login")]
-        [ProducesResponseType(typeof(OkResponseModel), StatusCodes.Status201Created)]
+        [Route("login")]
+        [ProducesResponseType(typeof(AuthResponseModel), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [SwaggerRequestExample(typeof(UserModel), typeof(RegisterUserModelExample))]
-        [SwaggerResponseExample(StatusCodes.Status201Created, typeof(OkResponseModelExample))]
+        [SwaggerRequestExample(typeof(LoginUserModel), typeof(LoginUserModelExample))]
+        [SwaggerResponseExample(StatusCodes.Status200OK, typeof(AuthResponseModel))]
         [Produces("application/json")]
-        public async Task<ActionResult> LoginUser([FromRoute] int idUser, [FromBody] LoginUserModel model)
+        public async Task<ActionResult> LoginUser([FromBody] LoginUserModel model)
         {
-            var response = await _userService.LoginUserAsync(idUser, model);
+            var response = await _userService.LoginUserAsync(model);
             return Ok(response);
         }
     }

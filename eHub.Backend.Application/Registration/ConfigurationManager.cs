@@ -21,7 +21,6 @@ namespace eHub.Backend.Application.Registration
         #endregion Swagger
 
         #region ConnectionStrings
-
         public static string? HomeLocalDB
         {
             get
@@ -45,8 +44,6 @@ namespace eHub.Backend.Application.Registration
                 return Configuration != null ? Configuration["ConnectionStrings:RemoteDockerSQLServer"] : string.Empty;
             }
         }
-
+        #endregion ConnectionStrings
     }
-    #endregion ConnectionStrings
-
 }

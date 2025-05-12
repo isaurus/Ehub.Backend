@@ -21,7 +21,7 @@
             <param name="model">El modelo de registro de usuario recibido como request</param>
             <returns>Respuesta estándar de éxito</returns>
         </member>
-        <member name="M:eHub.Backend.WebApi.Controllers.AuthController.LoginUser(System.Int32,eHub.Backend.Domain.Models.LoginUserModel)">
+        <member name="M:eHub.Backend.WebApi.Controllers.AuthController.LoginUser(eHub.Backend.Domain.Models.LoginUserModel)">
             <summary>
             Logea un usuario existente
             </summary>

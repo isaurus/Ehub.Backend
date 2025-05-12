@@ -8,7 +8,8 @@ using MediatR;
 
 namespace eHub.Backend.Application.Features.User
 {
-    public class UserHandler(IMapper mapper, IUserRepository userRepository, IPasswordHasherService passwordHasher) :
+    public class UserHandler(
+        IMapper mapper, IUserRepository userRepository, IPasswordHasherService passwordHasher, IAuthService authService) :
         IRequestHandler<GetAllUsersQuery, IEnumerable<UserResponseModel>>,
         IRequestHandler<GetUserByIdQuery, UserResponseModel?>,
         IRequestHandler<CreateUserCommand, OkResponseModel>,
@@ -16,13 +17,14 @@ namespace eHub.Backend.Application.Features.User
         IRequestHandler<UpdateUserCommand, OkResponseModel?>,
         IRequestHandler<RegisterUserCommand, OkResponseModel>,
         IRequestHandler<CompleteUserProfileCommand, OkResponseModel>,
-        IRequestHandler<LoginUserCommand, OkResponseModel?>
+        IRequestHandler<LoginUserCommand, AuthResponseModel?>
     {
 
         private readonly IMapper _mapper = mapper;
         private readonly IUserRepository _userRepository = userRepository;
 
         private readonly IPasswordHasherService _passwordHasher = passwordHasher;
+        private readonly IAuthService _authService = authService;
 
         public async Task<IEnumerable<UserResponseModel>> Handle(GetAllUsersQuery request, CancellationToken cancellationToken)
         {
@@ -109,9 +111,10 @@ namespace eHub.Backend.Application.Features.User
             };
         }
 
-        public async Task<OkResponseModel?> Handle(LoginUserCommand request, CancellationToken cancellationToken)
+        public async Task<AuthResponseModel?> Handle(LoginUserCommand request, CancellationToken cancellationToken)
         {
-            var user = await _userRepository.GetByIdAsync(request.Id);
+            var user = await _userRepository.GetUserByEmailAsync(request.Model.Email)
+                ?? throw new KeyNotFoundException($"El usuario con email {request.Model.Email} no ha sido encontrado.");
 
             var isPasswordValid = _passwordHasher.Verify(request.Model.Password, user.PasswordHash);
 
@@ -121,10 +124,14 @@ namespace eHub.Backend.Application.Features.User
             }
             else
             {
-                return new OkResponseModel
+                var userModel = _mapper.Map<UserModel>(user);
+                var token = _authService.GenerateJwtToken(userModel);
+
+                return new AuthResponseModel
                 {
-                    Id = user.Id,
-                    Message = "Login exitoso."
+                    Token = token,
+                    Email = user.Email,
+                    FullName = $"{user.FirstName} {user.LastName}"
                 };
             }
         }
