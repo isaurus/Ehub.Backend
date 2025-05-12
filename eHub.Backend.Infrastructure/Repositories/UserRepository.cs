@@ -18,8 +18,12 @@ namespace eHub.Backend.Infrastructure.Repositories
         public async Task DeleteAsync(int id)
         {
             var user = await GetByIdAsync(id);
+
             user.IsEnabled = false;
             user.DeletedTimeUtc = DateTime.UtcNow;
+
+            _context.Set<User>().Attach(user);
+            _context.Entry(user).State = EntityState.Modified;
 
             await _context.SaveChangesAsync();
         }
@@ -32,6 +36,8 @@ namespace eHub.Backend.Infrastructure.Repositories
 
         public async Task UpdateAsync(int id, User entity)
         {
+            entity.UpdatedAt = DateTime.UtcNow;
+
             _context.Set<User>().Attach(entity);
             _context.Entry(entity).State = EntityState.Modified;
             _context.Entry(entity).Property(x => x.CreatedAt).IsModified = false;   // Cuando se actualiza una entidad no se modifica el CreatedAt

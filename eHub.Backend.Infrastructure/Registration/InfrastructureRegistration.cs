@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using eHub.Backend.Domain.Contracts.Services;
+using eHub.Backend.Infrastructure.Security.Authentication;
 
 namespace eHub.Backend.Infrastructure.Registration
 {
@@ -19,6 +20,7 @@ namespace eHub.Backend.Infrastructure.Registration
 
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IPasswordHasherService, BCryptPasswordHasher>();
+            services.AddScoped<IAuthService, AuthService>();
 
             return services;
         }

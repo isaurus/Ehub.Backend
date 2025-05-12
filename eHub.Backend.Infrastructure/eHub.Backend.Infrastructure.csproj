@@ -25,8 +25,4 @@
     <ProjectReference Include="..\eHub.Backend.Domain\eHub.Backend.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Security\Authentication\" />
-  </ItemGroup>
-
 </Project>
