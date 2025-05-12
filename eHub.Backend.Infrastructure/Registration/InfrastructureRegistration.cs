@@ -18,9 +18,11 @@ namespace eHub.Backend.Infrastructure.Registration
             //services.AddDbContext<AppDbContext>(options => options.UseSqlServer(ConfigurationManager.HomeLocalDB));
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(ConfigurationManager.LaptopLocalDB));
 
+            services.Configure<JwtSettings>(configuration.GetSection(JwtSettings.SectionName));
+
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IPasswordHasherService, BCryptPasswordHasher>();
-            services.AddScoped<IAuthService, AuthService>();
+            services.AddSingleton<IAuthService, AuthService>();
 
             return services;
         }

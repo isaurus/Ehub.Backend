@@ -8,6 +8,11 @@ namespace eHub.Backend.Domain.Models
     public class UserModel
     {
         /// <summary>
+        /// El ID único del usuario.
+        /// </summary>
+        public int Id { get; set; }
+
+        /// <summary>
         /// Email del usuario.
         /// </summary>
         public string Email { get; set; } = string.Empty;

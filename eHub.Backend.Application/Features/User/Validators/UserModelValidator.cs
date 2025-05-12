@@ -7,6 +7,8 @@ namespace eHub.Backend.Application.Features.User.Validators
     {
         public UserModelValidator()
         {
+            // ¿ID?
+
             // Email
             RuleFor(u => u.Email)
                 .NotEmpty().WithMessage("El email es obligatorio")

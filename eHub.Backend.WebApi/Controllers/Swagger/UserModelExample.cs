@@ -12,6 +12,7 @@ namespace eHub.Backend.WebApi.Controllers.Swagger
         {
             return new UserModel
             {
+                Id = 1,
                 Email = "isaacmartin.dev@example.es",
                 PasswordHash = "",
                 ProfilePicUrl = "https://www.flaticon.com/free-icon-font/user_3917688?related_id=3917688",
