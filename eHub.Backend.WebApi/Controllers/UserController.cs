@@ -28,7 +28,7 @@ namespace eHub.Backend.WebApi.Controllers
         [Produces("application/json")]
         public async Task<ActionResult> GetAllUsers()
         {
-            var response = await _userService.GetAllGamesAsync();
+            var response = await _userService.GetAllUsersAsync();
             return Ok(response);
         }
 
@@ -47,7 +47,7 @@ namespace eHub.Backend.WebApi.Controllers
         [Produces("application/json")]
         public async Task<ActionResult> GetUserById([FromRoute] int idUser)
         {
-            var response = await _userService.GetGameByIdAsync(idUser);
+            var response = await _userService.GetUserByIdAsync(idUser);
             return Ok(response);
         }
 
@@ -62,19 +62,19 @@ namespace eHub.Backend.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [SwaggerRequestExample(typeof(UserModel), typeof(UserModelExample))]                // ¡NUEVO!
+        [SwaggerRequestExample(typeof(UserModel), typeof(UserModelExample))]
         [SwaggerResponseExample(StatusCodes.Status201Created, typeof(OkResponseModelExample))]
         [Produces("application/json")]
         public async Task<ActionResult> PostUser([FromBody] UserModel model)
         {
-            var response = await _userService.AddGameAsync(model);
-            return Ok(response);    // ¿LOCATION HEADER?
+            var response = await _userService.AddUserAsync(model);
+            return Ok(response);
         }
 
         /// <summary>
         /// Actualiza un usuario existente
         /// </summary>
-        /// <param name="idUSer">El ID único del usuario</param>
+        /// <param name="idUser">El ID único del usuario</param>
         /// <param name="model">El modelo de usuario recibido como request para actualizar</param>
         /// <returns>Respuesta estándar de éxito</returns>
         [HttpPut]
@@ -88,7 +88,7 @@ namespace eHub.Backend.WebApi.Controllers
         [Produces("application/json")]
         public async Task<ActionResult> PutUser([FromRoute] int idUser, [FromBody] UserModel model)
         {
-            var response = await _userService.UpdateGameAsync(idUser, model);
+            var response = await _userService.UpdateUserAsync(idUser, model);
             return Ok(response);
         }
 
@@ -106,7 +106,7 @@ namespace eHub.Backend.WebApi.Controllers
         [Produces("application/json")]
         public async Task<ActionResult> DeleteUser([FromRoute] int idUser)
         {
-            var response = await _userService.DeleteGameAsync(idUser);
+            var response = await _userService.DeleteUserAsync(idUser);
             return Ok(response);
         }
     }

@@ -1,4 +1,6 @@
-﻿using eHub.Backend.Domain.Contracts.Services;
+﻿using eHub.Backend.Application.Features.User.Commands;
+using eHub.Backend.Application.Features.User.Queries;
+using eHub.Backend.Domain.Contracts.Services;
 using eHub.Backend.Domain.Models;
 using MediatR;
 
@@ -11,29 +13,35 @@ namespace eHub.Backend.Business.Services
 
         public UserService(IMediator mediator) => _mediator = mediator;
 
-        public Task<OkResponseModel> AddGameAsync(UserModel model)
+        public async Task<OkResponseModel> AddUserAsync(UserModel model)
         {
-            throw new NotImplementedException();
+            var userCommand = new CreateUserCommand(model);
+
+            return await _mediator.Send(userCommand, default(CancellationToken));
         }
 
-        public Task<OkResponseModel?> DeleteGameAsync(int id)
+        public async Task<OkResponseModel?> DeleteUserAsync(int id)
         {
-            throw new NotImplementedException();
+            var userCommand = new DeleteUserCommand(id);
+
+            return await _mediator.Send(userCommand, default(CancellationToken));
         }
 
-        public Task<IEnumerable<UserResponseModel>> GetAllGamesAsync()
+        public async Task<IEnumerable<UserResponseModel>> GetAllUsersAsync()
         {
-            throw new NotImplementedException();
+            return await _mediator.Send(new GetAllUsersQuery(), default(CancellationToken));
         }
 
-        public Task<UserResponseModel?> GetGameByIdAsync(int id)
+        public async Task<UserResponseModel?> GetUserByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _mediator.Send(new GetUserByIdQuery(id), default(CancellationToken));
         }
 
-        public Task<OkResponseModel?> UpdateGameAsync(int id, UserModel model)
+        public async Task<OkResponseModel?> UpdateUserAsync(int id, UserModel model)
         {
-            throw new NotImplementedException();
+            var userCommand = new UpdateUserCommand(id, model);
+
+            return await _mediator.Send(userCommand, default (CancellationToken));
         }
     }
 }

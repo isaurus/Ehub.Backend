@@ -1,20 +1,12 @@
-﻿namespace eHub.Backend.Domain.Models
+﻿using eHub.Backend.Domain.Enums;
+
+namespace eHub.Backend.Domain.Models
 {
     /// <summary>
-    /// Modelo de datos para usuario
+    /// Modelo de la entidad User para las request.
     /// </summary>
     public class UserModel
     {
-        /// <summary>
-        /// Nombre del usuario (Máx. 50 caracteres).
-        /// </summary>
-        public string FirstName { get; set; } = string.Empty;
-
-        /// <summary>
-        /// Apellido del usuario (Máx. 255 caracteres).
-        /// </summary>
-        public string LastName { get; set; } = string.Empty;
-
         /// <summary>
         /// Email del usuario.
         /// </summary>
@@ -26,8 +18,28 @@
         public string PasswordHash { get; set; } = string.Empty;
 
         /// <summary>
+        /// El avatar seleccionado por el usuario.
+        /// </summary>
+        public string? ProfilePicUrl { get; set; }
+
+        /// <summary>
+        /// Nombre del usuario (Máx. 50 caracteres).
+        /// </summary>
+        public string? FirstName { get; set; }
+
+        /// <summary>
+        /// Apellido del usuario (Máx. 255 caracteres).
+        /// </summary>
+        public string? LastName { get; set; }
+
+        /// <summary>
         /// Fecha de nacimiento del usuario.
         /// </summary>
-        public DateOnly BirtDate { get; set; }
+        public DateOnly? BirthDate { get; set; }
+
+        /// <summary>
+        /// Nacionalidad del usuario.
+        /// </summary>
+        public Country? Country { get; set; }
     }
 }

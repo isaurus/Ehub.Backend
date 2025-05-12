@@ -5,11 +5,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace eHub.Backend.Infrastructure.Repositories
 {
-    public class UserRepository : IUserRepository
+    public class UserRepository(AppDbContext context) : IUserRepository
     {
-        public readonly AppDbContext _context;
-
-        public UserRepository(AppDbContext context) => _context = context;
+        public readonly AppDbContext _context = context;
 
         public async Task AddAsync(User entity)
         {
@@ -20,7 +18,7 @@ namespace eHub.Backend.Infrastructure.Repositories
         public async Task DeleteAsync(int id)
         {
             var user = await GetByIdAsync(id);
-            user.IsDeleted = true;
+            user.IsEnabled = false;
             user.DeletedTimeUtc = DateTime.UtcNow;
 
             await _context.SaveChangesAsync();
@@ -36,6 +34,8 @@ namespace eHub.Backend.Infrastructure.Repositories
         {
             _context.Set<User>().Attach(entity);
             _context.Entry(entity).State = EntityState.Modified;
+            _context.Entry(entity).Property(x => x.CreatedAt).IsModified = false;   // Cuando se actualiza una entidad no se modifica el CreatedAt
+
             await _context.SaveChangesAsync();
         }
     }

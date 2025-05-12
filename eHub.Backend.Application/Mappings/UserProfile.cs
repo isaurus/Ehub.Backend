@@ -17,12 +17,6 @@ namespace eHub.Backend.Application.Mappings
 
             CreateMap<User, UserResponseModel> ()
                 .ReverseMap();
-
-            CreateMap<CreateUserCommand, User>()
-                .ReverseMap();
-
-            CreateMap<UpdateUserCommand, User>()
-                .ReverseMap();
         }
     }
 }
