@@ -60,5 +60,12 @@ namespace eHub.Backend.Business.Services
 
             return await _mediator.Send(userCommand, default);
         }
+
+        public async Task<OkResponseModel?> LoginUserAsync(int id, LoginUserModel model)
+        {
+            var userCommand = new LoginUserCommand(id, model);
+
+            return await _mediator.Send(userCommand, default);
+        }
     }
 }

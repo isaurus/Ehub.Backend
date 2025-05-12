@@ -64,5 +64,12 @@
             <param name="model">El modelo de usuario recibido como request para actualizar</param>
             <returns>Respuesta estándar de éxito</returns>
         </member>
+        <member name="M:eHub.Backend.WebApi.Controllers.UserController.LoginUser(System.Int32,eHub.Backend.Domain.Models.LoginUserModel)">
+            <summary>
+            Logea un usuario existente
+            </summary>
+            <param name="model">El modelo de login de usuario recibido como request</param>
+            <returns>Respuesta estándar de éxito</returns>
+        </member>
     </members>
 </doc>

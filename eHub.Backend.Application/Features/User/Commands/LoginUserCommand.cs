@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using eHub.Backend.Domain.Models;
+using MediatR;
 
 namespace eHub.Backend.Application.Features.User.Commands
 {
-    class LoginUserCommand
+    public class LoginUserCommand(int id, LoginUserModel model) : IRequest<OkResponseModel?>
     {
+        public int Id { get; set; } = id;
+        public LoginUserModel Model { get; set; } = model;
     }
 }
