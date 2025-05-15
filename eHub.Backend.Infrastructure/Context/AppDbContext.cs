@@ -1,5 +1,7 @@
 ﻿using eHub.Backend.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Storage;
 
 namespace eHub.Backend.Infrastructure.Context
 {
@@ -7,6 +9,21 @@ namespace eHub.Backend.Infrastructure.Context
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
+            try
+            {
+                var dbCreator = Database.GetService<IDatabaseCreator>() as RelationalDatabaseCreator;
+                if (dbCreator != null)
+                {
+                    if (!dbCreator.CanConnect())
+                        dbCreator.Create();
+                    if (!dbCreator.HasTables())
+                        dbCreator.CreateTables();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
         public DbSet<User> Users { get; set; }

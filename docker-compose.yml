@@ -1,6 +1,28 @@
+version: '3.4'
+
 services:
   ehub.backend.webapi:
     image: ${DOCKER_REGISTRY-}ehubbackendwebapi
+    container_name: ehub.backend.webapi
     build:
       context: .
       dockerfile: eHub.Backend.WebApi/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "8082:8080"
+
+  sqlserverehubdatabase:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: sqlserver
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=PasswordSQLServer2025!
+    volumes:
+      - sqlserver-data:/var/opt/mssql
+      - ./:/usr/src/app/init
+    ports:
+      - "1433:1433"
+
+volumes:
+    sqlserver-data:    

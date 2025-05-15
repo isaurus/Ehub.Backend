@@ -15,8 +15,9 @@ namespace eHub.Backend.Infrastructure.Registration
     {
         public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext<AppDbContext>(options => options.UseSqlServer(ConfigurationManager.HomeLocalDB));
+            //services.AddDbContext<AppDbContext>(options => options.UseSqlServer(ConfigurationManager.HomeLocalDB));
             //services.AddDbContext<AppDbContext>(options => options.UseSqlServer(ConfigurationManager.LaptopLocalDB));
+            services.AddDbContext<AppDbContext>(options => options.UseSqlServer(ConfigurationManager.RemoteDockerSQLServer));
 
             services.Configure<JwtSettings>(configuration.GetSection(JwtSettings.SectionName));
 
