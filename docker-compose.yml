@@ -1,0 +1,6 @@
+services:
+  ehub.backend.webapi:
+    image: ${DOCKER_REGISTRY-}ehubbackendwebapi
+    build:
+      context: .
+      dockerfile: eHub.Backend.WebApi/Dockerfile
