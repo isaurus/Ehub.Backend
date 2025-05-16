@@ -29,8 +29,9 @@ namespace eHub.Backend.Infrastructure.Context.Mappings
 
             builder.HasKey(u => u.Id);
 
-            builder.Property(u => u.Id).ValueGeneratedOnAdd()
-                .IsRequired();
+            builder.Property(u => u.Id)
+                .IsRequired()
+                .ValueGeneratedNever();
 
             builder.Property(u => u.Email)
                 .IsRequired();
