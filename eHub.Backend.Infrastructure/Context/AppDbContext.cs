@@ -9,6 +9,7 @@ namespace eHub.Backend.Infrastructure.Context
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
+            // MÉTODO PARA CONSTRUIR LA DB AL LEVANTAR EL DOCKER (SOLO PARA DESARROLLO, DEBE BORRARSE EN PRODUCCIÓN Y HACERSE CON SCRIPTS DE SQL)
             try
             {
                 var dbCreator = Database.GetService<IDatabaseCreator>() as RelationalDatabaseCreator;
