@@ -4,5 +4,82 @@
         <name>eHub.Backend.WebApi</name>
     </assembly>
     <members>
+        <member name="T:eHub.Backend.WebApi.Controllers.AuthController">
+            <summary>
+            Controlador para las operaciones de Autenticación y Registro
+            </summary>
+        </member>
+        <member name="M:eHub.Backend.WebApi.Controllers.AuthController.#ctor(eHub.Backend.Domain.Contracts.Services.IUserService,eHub.Backend.Domain.Contracts.Services.IAuthService)">
+            <summary>
+            Controlador para las operaciones de Autenticación y Registro
+            </summary>
+        </member>
+        <member name="M:eHub.Backend.WebApi.Controllers.AuthController.RegisterUser(eHub.Backend.Domain.Models.RegisterUserModel)">
+            <summary>
+            Registra un nuevo usuario
+            </summary>
+            <param name="model">El modelo de registro de usuario recibido como request</param>
+            <returns>Respuesta estándar de éxito</returns>
+        </member>
+        <member name="M:eHub.Backend.WebApi.Controllers.AuthController.LoginUser(eHub.Backend.Domain.Models.LoginUserModel)">
+            <summary>
+            Logea un usuario existente
+            </summary>
+            <param name="model">El modelo de login de usuario recibido como request</param>
+            <returns>Respuesta estándar de éxito</returns>
+        </member>
+        <member name="T:eHub.Backend.WebApi.Controllers.UserController">
+            <summary>
+            Controlador para las operaciones CRUD de los usuarios
+            </summary>
+        </member>
+        <member name="M:eHub.Backend.WebApi.Controllers.UserController.#ctor(eHub.Backend.Domain.Contracts.Services.IUserService)">
+            <summary>
+            Controlador para las operaciones CRUD de los usuarios
+            </summary>
+        </member>
+        <member name="M:eHub.Backend.WebApi.Controllers.UserController.GetAllUsers">
+            <summary>
+            Obtiene todos los usuarios
+            </summary>
+            <returns>Lista completa de usuarios existentes</returns>
+        </member>
+        <member name="M:eHub.Backend.WebApi.Controllers.UserController.GetUserById(System.Int32)">
+            <summary>
+            Obtiene un usuario específico por su ID
+            </summary>
+            <param name="idUser">El ID único del usuario</param>
+            <returns>Datos completos del usuario solicitado</returns>
+        </member>
+        <member name="M:eHub.Backend.WebApi.Controllers.UserController.PostUser(eHub.Backend.Domain.Models.UserModel)">
+            <summary>
+            Crea un nuevo usuario
+            </summary>
+            <param name="model">El modelo de usuario recibido como request para nueva creación</param>
+            <returns>Respuesta estándar de éxito</returns>
+        </member>
+        <member name="M:eHub.Backend.WebApi.Controllers.UserController.PutUser(System.Int32,eHub.Backend.Domain.Models.UserModel)">
+            <summary>
+            Actualiza un usuario existente
+            </summary>
+            <param name="idUser">El ID único del usuario</param>
+            <param name="model">El modelo de usuario recibido como request para actualizar</param>
+            <returns>Respuesta estándar de éxito</returns>
+        </member>
+        <member name="M:eHub.Backend.WebApi.Controllers.UserController.DeleteUser(System.Int32)">
+            <summary>
+            Elimina un usuario según el ID proporcionado
+            </summary>
+            <param name="idUser">El ID único del usuario</param>
+            <returns>Respuesta estándar de éxito</returns>
+        </member>
+        <member name="M:eHub.Backend.WebApi.Controllers.UserController.CompleteUserProfile(System.Int32,eHub.Backend.Domain.Models.CompleteUserProfileModel)">
+            <summary>
+            Actualiza el usuario creado en la primera fase de registro
+            </summary>
+            <param name="idUser">El ID único del usuario</param>
+            <param name="model">El modelo de usuario recibido como request para actualizar</param>
+            <returns>Respuesta estándar de éxito</returns>
+        </member>
     </members>
 </doc>

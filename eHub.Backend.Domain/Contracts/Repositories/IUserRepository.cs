@@ -4,6 +4,6 @@ namespace eHub.Backend.Domain.Contracts.Repositories
 {
     public interface IUserRepository : IBaseRepository<User>
     {
-        
+        Task<User?> GetUserByEmailAsync(string email);
     }
 }

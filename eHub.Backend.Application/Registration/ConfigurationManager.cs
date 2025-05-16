@@ -6,7 +6,6 @@ namespace eHub.Backend.Application.Registration
     {
         public static IConfiguration? Configuration { get; set; }
 
-        // ESTE MÉTODO ES DE DEEPSEEK
         #region Swagger
         public static bool SwaggerEnabled
         {
@@ -20,19 +19,31 @@ namespace eHub.Backend.Application.Registration
             }
         }
         #endregion Swagger
-        // ESTE MÉTODO ES DE DEEPSEEK
 
         #region ConnectionStrings
-
-        public static string? LocalDB
+        public static string? HomeLocalDB
         {
             get
             {
-                return Configuration != null ? Configuration["ConnectionStrings:DefaultConnection"] : string.Empty;
+                return Configuration != null ? Configuration["ConnectionStrings:HomeLocalDB"] : string.Empty;
             }
         }
 
-    }
-    #endregion ConnectionStrings
+        public static string? LaptopLocalDB
+        {
+            get
+            {
+                return Configuration != null ? Configuration["ConnectionStrings:LaptopLocalDB"] : string.Empty;
+            }
+        }
 
+        public static string? RemoteDockerSQLServer
+        {
+            get
+            {
+                return Configuration != null ? Configuration["ConnectionStrings:RemoteDockerSQLServer"] : string.Empty;
+            }
+        }
+        #endregion ConnectionStrings
+    }
 }
